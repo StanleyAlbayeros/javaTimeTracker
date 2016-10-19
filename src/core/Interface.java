@@ -1,5 +1,6 @@
 package core;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
@@ -30,11 +31,16 @@ public class Interface implements Observer {
         }
     }
     
-    public static void menuScreen() {
-
-    	System.out.println("hola");
-    	System.out.println("hola");
-    	System.out.println("hola");
+    public String  menuScreen() throws IOException {
+    	System.out.println("********MENU***********");
+    	System.out.println("1 - Load previous state");
+    	System.out.println("2 - Run test A1");
+    	System.out.println("3 - Run test A2");
+    	System.out.println("4 - Exit ");
+    	System.out.println("***********************");
+    	
+        String option = System.console().readLine();
+    	return option;
     	
     }
 }
