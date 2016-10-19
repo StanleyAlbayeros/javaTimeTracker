@@ -31,7 +31,11 @@ public class Interface implements Observer {
     }
     
     public static void menuScreen() {
-    	
+
+    	System.out.println("hola");
+    	System.out.println("hola");
+    	System.out.println("hola");
+    	System.out.println("hola");
     	System.out.println("hola");
     	
     }
