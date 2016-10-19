@@ -1,0 +1,2 @@
+INDEX VERSION 1.129+H:\Classes\Disseny de Software\WorkspaceDS\.metadata\.plugins\org.eclipse.jdt.core
+1822708895.index
