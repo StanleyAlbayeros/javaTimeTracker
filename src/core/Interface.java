@@ -35,8 +35,6 @@ public class Interface implements Observer {
     	System.out.println("hola");
     	System.out.println("hola");
     	System.out.println("hola");
-    	System.out.println("hola");
-    	System.out.println("hola");
     	
     }
 }
