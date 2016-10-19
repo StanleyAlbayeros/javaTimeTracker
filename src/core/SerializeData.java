@@ -44,8 +44,8 @@ public class SerializeData {
 			fis.close();
 			
 		} catch (IOException ioe){
-			
-			System.out.print("File not found, creating a new project");
+			//TODO
+//			System.out.print("File not found, creating a new project");
 			root = new Project();
 			
 		} catch (ClassNotFoundException ce) {

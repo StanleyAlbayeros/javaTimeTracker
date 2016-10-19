@@ -3,6 +3,7 @@ package core;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class Client {
 
@@ -11,31 +12,39 @@ public class Client {
    	 	Interface t = new Interface();
    	 	
    	 	String option = t.menuScreen();
+ 
+   	 	//TODO
+//   	 	System.out.println("\n option pre case: " + option);
    	 	
-   	 	System.out.println("\n option pre case: " + option);
 		switch (option) {
 			case "1":
 
 		   	 	System.out.println("case 1");
 				break;
-				
+
 			case "2":
 
-		   	 	System.out.println("case 2");
+				System.out.println("case 2");
 				testA1(t);
-				
+
 				break;
-				
+
 			case "3":
 				testA2(t);
-				
+
 				break;
-				
+
 			case "4":
+				return;
+				
+			case "5":
+				
 				return;
 
 			default:
-				break;	
+
+				System.out.println("Invalid character.");
+				break;
 		}
 
    	 	Interface.printTable(root);  
@@ -45,12 +54,9 @@ public class Client {
 
 	private static void loadFile() throws IOException {
 		System.out.println("********Enter the filename.bin********");
-		 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		    String filename;
-		    do {
-		      filename = br.readLine();
-		      System.out.println(filename);
-		    } while (!filename.equals(".bin"));		    	    
+		 Scanner scanner = new Scanner(System.in);
+	        String filename = scanner.nextLine();
+	        scanner.close();	    	    
 		root = SerializeData.loadData(filename);
 	}
 
