@@ -1,4 +1,5 @@
 package core;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,7 +12,8 @@ public class BasicTask extends Task implements Serializable {
 	public BasicTask(String name, String description, Project father, ArrayList<Activity> root) {
 		super(name, description, father, root);
 	}
-	public BasicTask(){
-		
+
+	public BasicTask() {
+
 	}
 }

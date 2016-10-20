@@ -5,141 +5,163 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
+import org.slf4j.LoggerFactory;
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.core.FileAppender;
+
+
+
 public class Client {
 
-    public static void main(String[] args) throws InterruptedException, IOException {
-    	
-   	 	Interface t = new Interface();
-   	 	
-   	 	String option = t.menuScreen();
- 
-   	 	//TODO
-//   	 	System.out.println("\n option pre case: " + option);
-   	 	
+	private static Logger log = (Logger) LoggerFactory.getLogger(Client.class);
+	public static Scanner scanner = new Scanner(System.in);
+
+	public static void main(String[] args) throws InterruptedException, IOException {
+
+
+		log.info("Starting Main");
+		String option = Interface.menuScreen(scanner);
+		log.info("Read option: " + option);
+
+		if ((option == "2") || (option == "3")) {
+			Project newRoot = new Project();
+			setRoot(newRoot);
+		}
+
+
 		switch (option) {
 			case "1":
 
-		   	 	System.out.println("case 1");
-				loadFile();
-				break;
+				log.info("Loading saved state");
+				Interface t = new Interface();
+				setRoot(loadFile(scanner));
+				Interface.printTable(root);
+				return;
 
 			case "2":
 
-				System.out.println("case 2");
-				testA1(t);
+				log.info("Running test A1");
+				Interface t2 = new Interface();
+				testA1(t2);
 
 				break;
 
 			case "3":
-				testA2(t);
+				log.info("Running test A2");
+				Interface t3 = new Interface();
+				testA2(t3);
 
 				break;
 
 			case "4":
-				//root = SerializeData.loadData("lastState");
-				//Interface.printTable(root);
-				System.out.println("Printing last State");
-				
-				break;
-				
+				// root = SerializeData.loadData("lastState");
+				// Interface.printTable(root);
+				log.info("Printing last State");
+				Interface t4 = new Interface();
+				setRoot(SerializeData.loadData("lastState"));
+				Interface.printTable(root);
+
+				return;
+
 			case "5":
-				
+
 				return;
 
 			default:
-
-				System.out.println("Invalid character.");
-				break;
+				log.info("Invalid character.");
+				return;
 		}
 
-   	 	Interface.printTable(root);  
-   	 	SerializeData.saveData(root, "lastState");
-   	 	return;
-   	 	
-    }
+		SerializeData.saveData(root, "lastState");
+		scanner.close();
+		return;
+	}
 
-	private static void loadFile() throws IOException {
+	private static Project loadFile(Scanner scanner) throws IOException {
 		System.out.println("********Enter the filename.bin********");
-		 Scanner scanner = new Scanner(System.in);
-	        String filename = scanner.nextLine();
-	        scanner.close();	    	    
-		root = SerializeData.loadData(filename);
+		String filename = "";
+		filename = scanner.nextLine();
+		Project loadedRoot = SerializeData.loadData(filename);
+		return loadedRoot;
 	}
 
 	private static void testA1(Interface t) {
 		Project p1 = new Project("p1", "project root", root, root.getActivityList());
-        
-        Task t3 = new BasicTask ("t3", "root project task", p1, p1.getActivityList());
-        
-        Project p2 = new Project("p2", "root project subproject", p1, p1.getActivityList());
-        
-        @SuppressWarnings("unused") //remove later
+
+		Task t3 = new BasicTask("t3", "root project task", p1, p1.getActivityList());
+
+		Project p2 = new Project("p2", "root project subproject", p1, p1.getActivityList());
+
+		@SuppressWarnings("unused") // remove later
 		Task t1 = new BasicTask("t1", "p2 task", p2, p2.getActivityList());
-        
-        Task t2 = new BasicTask("t2", "p2 task", p2, p2.getActivityList());
-	
-   	 	try {
+
+		Task t2 = new BasicTask("t2", "p2 task", p2, p2.getActivityList());
+
+		try {
 			Clock clock = new Clock();
-			
+
 			clock.addObserver(t);
-			
+
 			clock.start();
-			
-			t3.stopwatch("interval", "task 3 interval", clock);
+
+			t3.startTask("interval", "task 3 interval", clock);
 			Thread.sleep(3000);
 			t3.stopTask(clock);
 			Thread.sleep(2000);
 			Thread.sleep(7000);
-			t2.stopwatch("interval", "task 2 interval", clock);
+			t2.startTask("interval", "task 2 interval", clock);
 			Thread.sleep(10000);
 			t2.stopTask(clock);
-			t3.stopwatch("interval", "task 3 interval", clock);
+			t3.startTask("interval", "task 3 interval", clock);
 			Thread.sleep(2000);
 			t3.stopTask(clock);
 			clock.stop();
 		} catch (Exception e) {
 			// TODO: handle exception
-		}  	 	
+		}
 	}
 
 	private static void testA2(Interface t) {
 		Project p1 = new Project("p1", "project root", root, root.getActivityList());
-        
-        Task t3 = new BasicTask ("t3", "root project task", p1, p1.getActivityList());
-        
-        Project p2 = new Project("p2", "root project subproject", p1, p1.getActivityList());
-        
-        @SuppressWarnings("unused") //remove later
+
+		Task t3 = new BasicTask("t3", "root project task", p1, p1.getActivityList());
+
+		Project p2 = new Project("p2", "root project subproject", p1, p1.getActivityList());
+
+
 		Task t1 = new BasicTask("t1", "p2 task", p2, p2.getActivityList());
-        
-        Task t2 = new BasicTask("t2", "p2 task", p2, p2.getActivityList());
-	
-   	 	try {
+
+		Task t2 = new BasicTask("t2", "p2 task", p2, p2.getActivityList());
+
+		try {
 			Clock clock = new Clock();
-			
+
 			clock.addObserver(t);
-			
+
 			clock.start();
-			
-			t3.stopwatch("interval", "task 3 interval", clock);
-			Thread.sleep(3000);
+
+			t3.startTask("interval", "task 3 interval", clock);
+			Thread.sleep(4000);
+			t2.startTask("interval", "task 2 interval", clock);
+			Thread.sleep(2000);
 			t3.stopTask(clock);
 			Thread.sleep(2000);
-			Thread.sleep(7000);
-			t2.stopwatch("interval", "task 2 interval", clock);
-			Thread.sleep(10000);
+			t1.startTask("interval", "task 1 interval", clock);
+			Thread.sleep(4000);
+			t1.stopTask(clock);
 			t2.stopTask(clock);
-			t3.stopwatch("interval", "task 3 interval", clock);
+			Thread.sleep(4000);
+			t3.startTask("interval", "task 3 interval", clock);
 			Thread.sleep(2000);
 			t3.stopTask(clock);
 			clock.stop();
 		} catch (Exception e) {
 			// TODO: handle exception
-		}	 	
+		}
 	}
-    
-	public static Project root = SerializeData.loadData("lastState");
-	
+
+	public static Project root = new Project();
+
 	public Project getRoot() {
 		return root;
 	}

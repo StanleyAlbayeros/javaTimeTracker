@@ -1,13 +1,13 @@
 package core;
 
 import java.io.Serializable;
-//import java.util.Calendar;
+// import java.util.Calendar;
 import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Date;
 
-public class Clock extends Observable implements Serializable {	
+public class Clock extends Observable implements Serializable {
 
 	/**
 	 * 
@@ -15,24 +15,25 @@ public class Clock extends Observable implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private boolean running = false;
-	
-    private Timer timer;
+
+	private Timer timer;
 
 	private long length = 0;
-	
+
 	private static long interval = 2000;
 
 	private static Date currentDate;
 
 	private static long intervalLength;
 
-	public Clock(){		
+	public Clock() {
 		timer = null;
 		running = false;
-		length = -1;   
+		length = -1;
 	}
 
-	public void stop(){
+	public void stop() {
+		timer.cancel();
 		running = false;
 	}
 
@@ -48,24 +49,24 @@ public class Clock extends Observable implements Serializable {
 		}
 	};
 
-    public void start(){
-            running = true;
-            if(length == -1){
-                    timer = new Timer();
-                    timer.scheduleAtFixedRate(notifier, 0, interval);
-            }
-            length = 0;
-    }
+	public void start() {
+		running = true;
+		if (length == -1) {
+			timer = new Timer();
+			timer.scheduleAtFixedRate(notifier, 0, interval);
+		}
+		length = 0;
+	}
 
 	public boolean isRunning() {
 		return running;
 	}
-	
-    public Timer getTimer() {
+
+	public Timer getTimer() {
 		return timer;
 	}
- 
-    public void setTimer(Timer timer) {
+
+	public void setTimer(Timer timer) {
 		this.timer = timer;
 	}
 
@@ -77,23 +78,23 @@ public class Clock extends Observable implements Serializable {
 		this.length = nlength;
 	}
 
-    public static Date getCurrentDate() {
-        return currentDate;
-    }
-    
-    public static void setCurrentDate(Date ncurrentDate) {
-        Clock.currentDate = ncurrentDate;
-    }
+	public static Date getCurrentDate() {
+		return currentDate;
+	}
 
-    public static long getIntervalLength() {
+	public static void setCurrentDate(Date ncurrentDate) {
+		Clock.currentDate = ncurrentDate;
+	}
+
+	public static long getIntervalLength() {
 		return intervalLength;
 	}
 
-    public static void setIntervalLength(long nintervalLength) {
+	public static void setIntervalLength(long nintervalLength) {
 		Clock.intervalLength = nintervalLength;
 	}
 
-    public void setRunning(boolean nrunning) {
+	public void setRunning(boolean nrunning) {
 		this.running = nrunning;
 	}
 }
