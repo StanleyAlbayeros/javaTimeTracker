@@ -36,8 +36,8 @@ public class Client {
 				break;
 
 			case "4":
-				root = SerializeData.loadData("lastState");
-				Interface.printTable(root);
+				//root = SerializeData.loadData("lastState");
+				//Interface.printTable(root);
 				System.out.println("Printing last State");
 				
 				break;
