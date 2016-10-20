@@ -11,9 +11,6 @@ import java.util.Observer;
  * diferencia entre la fecha inicial de la tarea y la fecha final. 
  */
 public class Interval implements Observer, Serializable {
-
-
-
 	/**
 	 * 
 	 */
@@ -37,6 +34,9 @@ public class Interval implements Observer, Serializable {
     	this.description = ndescription;
     	this.startDate = new Date();
     	fatherTask.getIntervalList().add(this);
+    }
+    public Interval(){
+    	
     }
     
 	/** 

@@ -20,6 +20,7 @@ public class Client {
 			case "1":
 
 		   	 	System.out.println("case 1");
+				loadFile();
 				break;
 
 			case "2":
@@ -35,7 +36,11 @@ public class Client {
 				break;
 
 			case "4":
-				return;
+				root = SerializeData.loadData("lastState");
+				Interface.printTable(root);
+				System.out.println("Printing last State");
+				
+				break;
 				
 			case "5":
 				
@@ -49,6 +54,7 @@ public class Client {
 
    	 	Interface.printTable(root);  
    	 	SerializeData.saveData(root, "lastState");
+   	 	return;
    	 	
     }
 
@@ -93,8 +99,7 @@ public class Client {
 			clock.stop();
 		} catch (Exception e) {
 			// TODO: handle exception
-		}
-   	 	SerializeData.saveData(root, "TestA1");   	 	
+		}  	 	
 	}
 
 	private static void testA2(Interface t) {
@@ -130,9 +135,7 @@ public class Client {
 			clock.stop();
 		} catch (Exception e) {
 			// TODO: handle exception
-		}
-   	 		 	
-   	 	SerializeData.saveData(root, "TestA1");   	 	
+		}	 	
 	}
     
 	public static Project root = SerializeData.loadData("lastState");
@@ -141,7 +144,7 @@ public class Client {
 		return root;
 	}
 
-	public void setRoot(Project nroot) {
+	public static void setRoot(Project nroot) {
 		Client.root = nroot;
 	}
 }

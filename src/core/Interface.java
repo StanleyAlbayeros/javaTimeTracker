@@ -37,7 +37,7 @@ public class Interface implements Observer {
     	System.out.println("1 - Load saved state");
     	System.out.println("2 - Run test A1");
     	System.out.println("3 - Run test A2");
-    	System.out.println("4 - Load previous state");
+    	System.out.println("4 - Print previous state");
     	System.out.println("5 - Exit ");
     	System.out.println("***********************");
     	

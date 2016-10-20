@@ -15,6 +15,9 @@ public abstract class Task extends Activity implements Serializable {
     public Task(String name, String description, Project father, ArrayList<Activity> root) {
     	super(name, description, father, root);           
     }
+    
+    public Task() {
+	}
 
     public void stopwatch(String name, String description, Clock clock){
         Date d = new Date();

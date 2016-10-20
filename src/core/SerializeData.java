@@ -1,5 +1,6 @@
 package core;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,12 +11,21 @@ public class SerializeData {
 	
 	public static void saveData (Project root, String name){
 		
-		String filename = name.toLowerCase();
+		String filename = name;
 		filename = filename + ".bin";
+		File file = new File(filename);
+		if (!file.exists()){
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		
 		try{
 			
-			FileOutputStream fos = new FileOutputStream(name);
+			FileOutputStream fos = new FileOutputStream(file);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(root);
 			oos.close();
@@ -30,12 +40,21 @@ public class SerializeData {
 	}
 	
 	public static Project loadData (String name){		
-		String filename = name.toLowerCase();
+		String filename = name;
 		filename = filename + ".bin";
+		File file = new File(filename);
+		if (!file.exists()){
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		Project root = null;
 		try {
 			
-			FileInputStream fis = new FileInputStream(filename);
+			FileInputStream fis = new FileInputStream(file);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 			
 			root = (Project) ois.readObject();
