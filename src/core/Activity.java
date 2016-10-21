@@ -10,10 +10,8 @@ import ch.qos.logback.classic.Logger;
 
 public abstract class Activity implements Serializable {
 
-	/**
-	 * gets rid of the activity warning
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private static Logger log = (Logger) LoggerFactory.getLogger(Activity.class);
 
 	private String description = new java.lang.String();
@@ -33,9 +31,9 @@ public abstract class Activity implements Serializable {
 	 * Task and project constructor
 	 * 
 	 * @param root: root object
-	 * @param name
-	 * @param description
-	 * @param father: father object of the new object
+	 * @param name: Activity instance name
+	 * @param description: Activity instance descrpition
+	 * @param father: father activity of the new activity
 	 * 
 	 */
 	public Activity(String name, String description, Project nFather, ArrayList<Activity> root) {

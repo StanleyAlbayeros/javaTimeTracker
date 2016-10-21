@@ -15,11 +15,14 @@ public abstract class Task extends Activity implements Serializable {
 	private static final long serialVersionUID = 1L;	
 	
 	private static Logger log = (Logger) LoggerFactory.getLogger(Task.class);
+	
+	private String taskType;
 
 	private ArrayList<Interval> intervalList = new java.util.ArrayList<Interval>();
 
-	public Task(String name, String description, Project father, ArrayList<Activity> root) {
+	public Task(String name, String description, Project father, ArrayList<Activity> root, String ntaskType) {
 		super(name, description, father, root);
+		setTaskType(ntaskType);
 	}
 
 	public Task() {}
@@ -77,6 +80,14 @@ public abstract class Task extends Activity implements Serializable {
 		this.intervalList = nintervalList;
 	}	
 	
+	public String getTaskType() {
+		return taskType;
+	}
+
+	public void setTaskType(String ntaskType) {
+		taskType = ntaskType;
+	}
+
 	public abstract Task getNextTask();
 	public abstract Date getTaskStartDate();
 	public abstract int getTimeLimit();

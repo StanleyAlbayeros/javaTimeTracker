@@ -55,7 +55,7 @@ public class Interval implements Observer, Serializable {
 	 */
 	public void update(Observable observable, Object date) {
 		
-		switch (fatherClass){
+		switch (fatherTask.getTaskType()){
 			case "BasicTask":
 				normalUpdate(observable, date);
 				break;

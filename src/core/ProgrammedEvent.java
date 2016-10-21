@@ -1,23 +1,19 @@
 package core;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.slf4j.LoggerFactory;
-
-import ch.qos.logback.classic.Logger;
-
-public class ProgrammedEvent extends SpecialTask{
+public class ProgrammedEvent extends SpecialTask implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Date startingDate;
-
-	private static Logger log = (Logger) LoggerFactory.getLogger(ProgrammedEvent.class);
 	
 	public ProgrammedEvent(String name, String description, Project father, ArrayList<Activity> root, Date nstartingDate){
-		super(name, description, father, root);
+		super(name, description, father, root, "ProgrammedEvent");
+
 		startingDate = nstartingDate;
 	}
 	
