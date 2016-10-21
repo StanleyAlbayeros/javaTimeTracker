@@ -68,6 +68,16 @@ public class Interface implements Observer {
 		return option;
 
 	}
+	
+	public static void exitScreen(){
+		System.out.println(division);
+		System.out.println(division);
+		System.out.println("\t\t\t"
+				+ "--------------Goodbye--------------");
+		System.out.println(division);
+		System.out.println(division);
+		
+	}
 
 	/** transitions between the main menu and an option execution
 	 * @param option: option to print

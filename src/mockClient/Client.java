@@ -93,13 +93,16 @@ public class Client {
 
 			case "8":
 				log.info("Exiting the program");
+				Interface.exitScreen();
 				return;
 
 			default:
 				log.info("Invalid character.");
+				Interface.exitScreen();
 				return;
 		}
 		
+		Interface.exitScreen();
 		SerializeData.saveData(root, "lastCompletedState");
 		scanner.close();
 		return;

@@ -68,7 +68,7 @@ public class Interval implements Observer, Serializable {
 			case "BasicTask":
 				normalUpdate();
 				break;
-			case "ProgramedTask":
+			case "ProgramedEvent":
 				Date currentDate = Clock.getCurrentDate();
 				if (fatherTask.getEndingDate().before(currentDate)){
 					fatherTask.stopTaskInterval();

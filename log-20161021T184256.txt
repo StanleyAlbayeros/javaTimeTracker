@@ -1,0 +1,3 @@
+[main] INFO  mockClient.Client - Starting Main
+[main] INFO  mockClient.Client - Read option: 8
+[main] INFO  mockClient.Client - Exiting the program
