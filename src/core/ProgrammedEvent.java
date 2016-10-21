@@ -21,23 +21,6 @@ public class ProgrammedEvent extends SpecialTask{
 		startingDate = nstartingDate;
 	}
 	
-	@Override
-	public void stopTask() {
-
-		Clock clock = Clock.getInstance();
-		log.info("Stopping the task: " + getName() + " with description: " + getDescription());
-		int i = 0;
-		i = getIntervalList().size() - 1;
-		clock.deleteObserver(getIntervalList().get(i));
-		Project p = this.getFather();
-		
-		while (p!=null){
-			SerializeData.saveData(p, "tempState");
-			p = p.getFather();
-		}
-		log.info("Task: " + getName() + " stopped");
-	}
-	
 	
 	@Override
 	public Task getNextTask() {

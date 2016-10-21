@@ -42,20 +42,5 @@ public class BasicTask extends Task implements Serializable {
 		return 0;
 	}
 
-	@Override
-	public void stopTask() {
 
-		Clock clock = Clock.getInstance();
-		log.info("Stopping the task: " + getName() + " with description: " + getDescription());
-		int i = 0;
-		i = getIntervalList().size() - 1;
-		clock.deleteObserver(getIntervalList().get(i));
-		Project p = this.getFather();
-		
-		while (p!=null){
-			SerializeData.saveData(p, "tempState");
-			p = p.getFather();
-		}
-		log.info("Task: " + getName() + " stopped");
-	}
 }
