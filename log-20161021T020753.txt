@@ -1,0 +1,3 @@
+[main] INFO  core.Client - Starting Main
+[main] INFO  core.Client - Read option: 5
+[main] INFO  core.Client - Exiting the program
