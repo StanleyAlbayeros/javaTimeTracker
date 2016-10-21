@@ -10,11 +10,16 @@ import java.io.ObjectOutputStream;
 import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Logger;
+import mockClient.Client;
 
 public class SerializeData {
 	
 	private static Logger log = (Logger) LoggerFactory.getLogger(Client.class);
 	
+	/** Uses serialization to save the current root state to a binary file
+	 * @param root: desired tree root
+	 * @param name: desired filename
+	 */
 	public static void saveData(Project root, String name) {
 		String filename = name;
 		filename = filename + ".bin";
@@ -49,6 +54,10 @@ public class SerializeData {
 		log.info("Program's state successfully saved in: " + filename);
 	}
 
+	/** Loads project data from a desired binary file created by this program
+	 * @param name: desired filename to load
+	 * @return project data saved in the bin file
+	 */
 	public static Project loadData(String name) {
 		String filename = name;
 		filename = filename + ".bin";

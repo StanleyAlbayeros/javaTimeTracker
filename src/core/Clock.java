@@ -35,12 +35,19 @@ public class Clock extends Observable implements Serializable {
 	
 	private static Clock singleClock;
 
+	/** Private clock constructor
+	 * 
+	 */
 	private Clock() {
 		timer = null;
 		running = false;
 		length = -1;
 	}
 	
+	/** External method that retrieves the only Clock instance or creates a new one if it does not exist
+	 * 
+	 * @return the singleton clock instance or a new clock instance if there is no singleton clock instance
+	 */
 	public static synchronized Clock getInstance(){
 		if (singleClock==null){
 			log.info("Creating single Clock instance");
@@ -50,6 +57,9 @@ public class Clock extends Observable implements Serializable {
 		
 	}
 
+	/** Stops the clock instance
+	 * 
+	 */
 	public void stop() {
 		timer.cancel();
 		running = false;
@@ -67,6 +77,9 @@ public class Clock extends Observable implements Serializable {
 		}
 	};
 
+	/** Starts the clock instance
+	 * 
+	 */
 	public void start() {
 		running = true;
 		if (length == -1) {

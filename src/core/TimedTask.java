@@ -6,23 +6,28 @@ import java.util.Date;
 
 public class TimedTask extends SpecialTask implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private int timeLimit;
 	
+	/** Timed task constructor
+	 * 
+	 * @param root: root object
+	 * @param name: task instance name
+	 * @param description: task instance descrpition
+	 * @param father: father activity of the new task
+	 * @param ntimeLimit: maximum task length
+	 */
 	public TimedTask(String name, String description, Project father, ArrayList<Activity> root, int ntimeLimit) {
 		super(name, description, father, root, "TimedTask");
 
 		timeLimit = ntimeLimit;
 	}
-
+	
 	/**
-	 * 
+	 * No arg constructor used to serialize
 	 */
-	private static final long serialVersionUID = 1L;
+	public TimedTask() {
 
-	@Override
-	public String getName(){
-		String myName = super.getName() + " timed task.";
-		return myName;
 	}
 	
 	@Override
@@ -41,6 +46,12 @@ public class TimedTask extends SpecialTask implements Serializable {
 	public int getTimeLimit() {
 		
 		return timeLimit;
+	}
+
+	@Override
+	public Date getEndingDate() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

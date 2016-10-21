@@ -10,13 +10,28 @@ public class ProgrammedEvent extends SpecialTask implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Date startingDate;
-	
-	public ProgrammedEvent(String name, String description, Project father, ArrayList<Activity> root, Date nstartingDate){
-		super(name, description, father, root, "ProgrammedEvent");
 
-		startingDate = nstartingDate;
-	}
+	private Date endingDate;
 	
+	/** Programmed event constructor
+	 * 
+	 * @param root: root object
+	 * @param name: task instance name
+	 * @param description: task instance descrpition
+	 * @param father: father activity of the new task
+	 * @param nstartingDate: used to start the task in a future date
+	 */
+	public ProgrammedEvent(String name, String description, Project father, ArrayList<Activity> root, Date nstartingDate, Date nendingDate){
+		super(name, description, father, root, "ProgrammedEvent");
+		startingDate = nstartingDate;
+		endingDate = nendingDate;
+	}
+	/**
+	 * No arg constructor used to serialize
+	 */
+	public ProgrammedEvent(){
+		
+	}
 	
 	@Override
 	public Task getNextTask() {
@@ -31,5 +46,11 @@ public class ProgrammedEvent extends SpecialTask implements Serializable {
 	@Override
 	public int getTimeLimit() {
 		return 0;
+	}
+	public Date getEndingDate() {
+		return endingDate;
+	}
+	public void setEndingDate(Date endingDate) {
+		this.endingDate = endingDate;
 	}	
 }

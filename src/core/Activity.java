@@ -20,7 +20,6 @@ public abstract class Activity implements Serializable {
 
 	private Date endDate = null;
 
-
 	private long length = 0;
 
 	protected Project father = null;
@@ -44,11 +43,12 @@ public abstract class Activity implements Serializable {
 		father.setActivityList(root);
 		log.info("Created activity: " + name + " with the following description: " + description);
 	}
-
 	/**
-	 * Constructor
+	 * No arg constructor used to serialize
 	 */
-	public Activity() {}
+	public Activity() {
+		
+	}
 
 	public Project getFather() {
 		return father;

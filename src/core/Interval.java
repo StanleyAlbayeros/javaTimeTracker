@@ -8,6 +8,7 @@ import java.util.Observer;
 import org.slf4j.LoggerFactory;
 
 import ch.qos.logback.classic.Logger;
+import mockClient.Client;
 
 /**
  * la clase intervalo es la clase que observa el clock segun el patron de dise�o Observer durante la
@@ -33,57 +34,72 @@ public class Interval implements Observer, Serializable {
 	private long length = 0;
 
 	private String description = new java.lang.String();
-	
-	private String fatherClass;
 
-	public Interval(String nname, String ndescription, Task nfatherTask) {
-		fatherTask = nfatherTask;
-		name = nname;
-		description = ndescription;
+	/** Constructs an interval
+	 * @param name
+	 * @param description
+	 * @param fatherTask: the new interval belongs to this task
+	 */
+	public Interval(String name, String description, Task fatherTask) {
+		this.fatherTask = fatherTask;
+		this.name = name;
+		this.description = description;
 		startDate = new Date();
-		fatherClass = (String) fatherTask.getClass().getSimpleName();
-		fatherTask.getIntervalList().add(this);
+		this.fatherTask.getIntervalList().add(this);
 		log.info("Created an interval: " + name + " for activity: " + fatherTask.getName());
 	}
 
+	/**
+	 * No arg constructor used to serialize
+	 */
 	public Interval() {
 
 	}
 
-	/**
-	 * informs the observers
+	/** Updates this interval depending on the type of task that contains it.
+	 *  
+	 *  This method is called whenever the observable is updated.
+	 *  
 	 */
+
 	public void update(Observable observable, Object date) {
 		
 		switch (fatherTask.getTaskType()){
 			case "BasicTask":
-				normalUpdate(observable, date);
+				normalUpdate();
 				break;
 			case "ProgramedTask":
 				Date currentDate = Clock.getCurrentDate();
+				if (fatherTask.getEndingDate().before(currentDate)){
+					fatherTask.stopTaskInterval();
+					break;
+				}
 				if (fatherTask.getTaskStartDate().before(currentDate)){
-					normalUpdate(observable, date);
+					normalUpdate();
 				}
 				break;
 			case "TaskSequence":
-				normalUpdate(observable, date);
+				normalUpdate();
 				break;
 			case "TimedTask":
 				if (fatherTask.getTimeLimit()<fatherTask.getLength()){
-					normalUpdate(observable, date);
+					normalUpdate();
 				} else {
-					fatherTask.stopTask();
+					fatherTask.stopTaskInterval();
 				}
 				break;
 			default:
-				normalUpdate(observable, date);
+				normalUpdate();
 				break;
 
 		}
 		
 	}
 	
-	public void normalUpdate(Observable observable, Object date) {
+	/** Simply updates an interval
+	 * 
+	 */
+	public void normalUpdate() {
 		this.length = Clock.getIntervalLength();
 		Activity tempA = this.fatherTask;
 		while (tempA != null) {

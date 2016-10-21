@@ -1,8 +1,7 @@
 package core;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Logger;
@@ -18,16 +17,36 @@ public abstract class Task extends Activity implements Serializable {
 	
 	private String taskType;
 
-	private ArrayList<Interval> intervalList = new java.util.ArrayList<Interval>();
+	private ArrayList<Interval> intervalList = new ArrayList<Interval>();
+	
+	private ArrayDeque<Interval> pausedIntervals = new ArrayDeque<Interval>();
 
+	/** Abstract task constructor
+	 * @param name
+	 * @param description
+	 * @param father
+	 * @param root
+	 * @param ntaskType Sets the task type (basic, sequence, programmed, timed) to avoid getclass() calls
+	 */
 	public Task(String name, String description, Project father, ArrayList<Activity> root, String ntaskType) {
 		super(name, description, father, root);
 		setTaskType(ntaskType);
+
+		log.info("Task: " + name +". Type: "+ taskType +" created.");
+	}
+	
+	/**
+	 * No arg constructor used to serialize
+	 */
+	public Task() {
+		
 	}
 
-	public Task() {}
-
-	public void startTask(String name, String description) {
+	/** Starts a new task interval
+	 * @param name interval name
+	 * @param description interval description
+	 */
+	public void startTaskInterval(String name, String description) {
 
 		Clock clock = Clock.getInstance();
 		log.info("Starting the task: " + name + " with description: " + description);
@@ -45,19 +64,19 @@ public abstract class Task extends Activity implements Serializable {
 		}
 		Interval i = new Interval(name, description, this);
 		clock.addObserver(i);
-		log.info("Task: " + name + " started succesfully");
+		log.info("Task: " + name +". Type: "+ taskType +" started succesfully");
 	}
 
-	/**
-	 * @param clock
-	 */	
-	public void stopTask() {
+	/** Stops this task's lest running interval and updates the project tree accordingly.
+	 * 
+	 */
+	public void stopTaskInterval() {
 
 			Clock clock = Clock.getInstance();
 			log.info("Stopping the task: " + getName() + " with description: " + getDescription());
-			int i = 0;
-			i = getIntervalList().size() - 1;
-			clock.deleteObserver(getIntervalList().get(i));
+			int intervalIndex = 0;
+			intervalIndex = getIntervalList().size() - 1;
+			clock.deleteObserver(getIntervalList().get(intervalIndex));
 			Project p = this.getFather();
 			
 			while (p!=null){
@@ -67,11 +86,59 @@ public abstract class Task extends Activity implements Serializable {
 			log.info("Task: " + getName() + " stopped");
 		}
 
-	public void pauseTask(Clock clock) {
-		clock.stop();
-		log.info("Task: " + getName() + " paused");
-	}
+	/** Pauses this task's latest running interval, and saves its position within intervalList so we can resume it later
+	 * 
+	 */
+	public void pauseTaskInterval() {
 
+		Clock clock = Clock.getInstance();
+		int pausedIntervalIndex = 0;
+		pausedIntervalIndex = getIntervalList().size() - 1;
+		Interval pausedInterval = getIntervalList().get(pausedIntervalIndex);
+		pausedIntervals.push(pausedInterval);
+		clock.deleteObserver(pausedInterval);
+		log.info("Task: " + getName() + " paused");
+	}	
+	
+	/** Resumes the last paused task interval.
+	 * 
+	 */
+	public void resumeTaskInterval() {
+
+		if (!pausedIntervals.isEmpty()) {
+			Clock clock = Clock.getInstance();
+			int pausedIntervalIndex = 0;
+			pausedIntervalIndex = getIntervalList().size() - 1;
+			Interval pausedInterval = getIntervalList().get(pausedIntervalIndex);
+			pausedIntervals.push(pausedInterval);
+			clock.addObserver(pausedInterval);
+			log.info("Task: " + getName() + " resumed");
+		}
+	}
+	
+	/** Implemented by decorator SpecialTask subclass TaskSequence
+	 * 
+	 * @return queued task
+	 */
+	public abstract Task getNextTask();
+	
+	/** Implemented by decorator SpecialTask subclass ProgrammedEvent
+	 * 
+	 * @return date in which the task will start
+	 */
+	public abstract Date getTaskStartDate();
+	
+	/** Implemented by decorator Specialtask subclass ProgrammedEvent
+	 * 
+	 * @return date in which the task will end
+	 */
+	public abstract Date getEndingDate();
+	/** Implemented by decorator SpecialTask subclass TimedTask
+	 * 
+	 * @return maximum TimedTask duration
+	 */
+	public abstract int getTimeLimit();
+	
 	public ArrayList<Interval> getIntervalList() {
 		return intervalList;
 	}
@@ -88,9 +155,7 @@ public abstract class Task extends Activity implements Serializable {
 		taskType = ntaskType;
 	}
 
-	public abstract Task getNextTask();
-	public abstract Date getTaskStartDate();
-	public abstract int getTimeLimit();
+	
 
 
 }
