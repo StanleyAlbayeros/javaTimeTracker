@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import org.slf4j.LoggerFactory;
-
 import ch.qos.logback.classic.Logger;
 
 public abstract class Task extends Activity implements Serializable {
@@ -15,7 +14,7 @@ public abstract class Task extends Activity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;	
 	
-	private static Logger log = (Logger) LoggerFactory.getLogger(Client.class);
+	private static Logger log = (Logger) LoggerFactory.getLogger(Task.class);
 
 	private ArrayList<Interval> intervalList = new java.util.ArrayList<Interval>();
 
@@ -25,7 +24,9 @@ public abstract class Task extends Activity implements Serializable {
 
 	public Task() {}
 
-	public void startTask(String name, String description, Clock clock) {
+	public void startTask(String name, String description) {
+
+		Clock clock = Clock.getInstance();
 		log.info("Starting the task: " + name + " with description: " + description);
 		Date d = new Date();
 		if (this.getStartDate() == null) {
@@ -44,18 +45,10 @@ public abstract class Task extends Activity implements Serializable {
 		log.info("Task: " + name + " started succesfully");
 	}
 
-	public void stopTask(Clock clock) {
-		log.info("Stopping the task: " + getName() + " with description: " + getDescription());
-		int i = 0;
-		i = intervalList.size() - 1;
-		clock.deleteObserver(intervalList.get(i));
-		Project p = this.getFather();
-		while (p!=null){
-			SerializeData.saveData(p, "tempState");
-			p = p.getFather();
-		}
-		log.info("Task: " + getName() + " stopped");
-	}
+	/**
+	 * @param clock
+	 */
+	public abstract void stopTask();
 
 	public void pauseTask(Clock clock) {
 		clock.stop();
@@ -68,6 +61,11 @@ public abstract class Task extends Activity implements Serializable {
 
 	public void setIntervalList(ArrayList<Interval> nintervalList) {
 		this.intervalList = nintervalList;
-	}
+	}	
+	
+	public abstract Task getNextTask();
+	public abstract Date getTaskStartDate();
+	public abstract int getTimeLimit();
+
 
 }

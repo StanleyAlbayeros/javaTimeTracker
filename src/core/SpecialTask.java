@@ -10,6 +10,9 @@ public abstract class SpecialTask extends Task{
 	public SpecialTask(String name, String description, Project father, ArrayList<Activity> root) {
 		super(name, description, father, root);
 	}
+	
+	
+	
 	public abstract Task getNextTask();
 	public abstract Date getTaskStartDate();
 	public abstract int getTimeLimit();

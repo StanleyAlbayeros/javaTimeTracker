@@ -19,7 +19,7 @@ public class Clock extends Observable implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static Logger log = (Logger) LoggerFactory.getLogger(Client.class);
+	private static Logger log = (Logger) LoggerFactory.getLogger(Clock.class);
 	
 	private boolean running = false;
 
@@ -32,11 +32,22 @@ public class Clock extends Observable implements Serializable {
 	private static Date currentDate;
 
 	private static long intervalLength;
+	
+	private static Clock singleClock;
 
-	public Clock() {
+	private Clock() {
 		timer = null;
 		running = false;
 		length = -1;
+	}
+	
+	public static synchronized Clock getInstance(){
+		if (singleClock==null){
+			log.info("Creating single Clock instance");
+			singleClock = new Clock();
+		}
+		return singleClock;
+		
 	}
 
 	public void stop() {
@@ -106,4 +117,3 @@ public class Clock extends Observable implements Serializable {
 		this.running = nrunning;
 	}
 }
-

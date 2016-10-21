@@ -19,7 +19,9 @@ public class Interval implements Observer, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private static Logger log = (Logger) LoggerFactory.getLogger(Client.class);
+	
 	private Task fatherTask = null;
 
 	private String name = new java.lang.String();
@@ -31,12 +33,15 @@ public class Interval implements Observer, Serializable {
 	private long length = 0;
 
 	private String description = new java.lang.String();
+	
+	private String fatherClass;
 
 	public Interval(String nname, String ndescription, Task nfatherTask) {
-		this.fatherTask = nfatherTask;
-		this.name = nname;
-		this.description = ndescription;
-		this.startDate = new Date();
+		fatherTask = nfatherTask;
+		name = nname;
+		description = ndescription;
+		startDate = new Date();
+		fatherClass = (String) fatherTask.getClass().getSimpleName();
 		fatherTask.getIntervalList().add(this);
 		log.info("Created an interval: " + name + " for activity: " + fatherTask.getName());
 	}
@@ -49,10 +54,41 @@ public class Interval implements Observer, Serializable {
 	 * informs the observers
 	 */
 	public void update(Observable observable, Object date) {
+		
+		switch (fatherClass){
+			case "BasicTask":
+				normalUpdate(observable, date);
+				break;
+			case "ProgramedTask":
+				Date currentDate = Clock.getCurrentDate();
+				if (fatherTask.getTaskStartDate().before(currentDate)){
+					normalUpdate(observable, date);
+				}
+				break;
+			case "TaskSequence":
+				normalUpdate(observable, date);
+				break;
+			case "TimedTask":
+				if (fatherTask.getTimeLimit()<fatherTask.getLength()){
+					normalUpdate(observable, date);
+				} else {
+					fatherTask.stopTask();
+				}
+				break;
+			default:
+				normalUpdate(observable, date);
+				break;
+
+		}
+		
+	}
+	
+	public void normalUpdate(Observable observable, Object date) {
 		this.length = Clock.getIntervalLength();
 		Activity tempA = this.fatherTask;
 		while (tempA != null) {
-			this.setEndDate(Clock.getCurrentDate());
+			Date currentDate = Clock.getCurrentDate();
+			this.setEndDate(currentDate );
 			tempA.setEndDate(this.endDate);
 			tempA.addLength(2000);
 			tempA = tempA.getFather();

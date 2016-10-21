@@ -32,7 +32,6 @@ public class Client {
 			case "1":
 
 				log.info("Loading saved state");
-				Interface t = new Interface();
 				setRoot(loadFile(scanner));
 				Interface.printTable(root);
 				return;
@@ -100,23 +99,23 @@ public class Client {
 		Task t2 = new BasicTask("t2", "p2 task", p2, p2.getActivityList());
 
 		try {
-			Clock clock = new Clock();
+			Clock clock = Clock.getInstance();
 
 			clock.addObserver(t);
 
 			clock.start();
 
-			t3.startTask("interval", "task 3 interval", clock);
+			t3.startTask("interval", "task 3 interval");
 			Thread.sleep(3000);
-			t3.stopTask(clock);
+			t3.stopTask();
 			Thread.sleep(2000);
 			Thread.sleep(7000);
-			t2.startTask("interval", "task 2 interval", clock);
+			t2.startTask("interval", "task 2 interval");
 			Thread.sleep(10000);
-			t2.stopTask(clock);
-			t3.startTask("interval", "task 3 interval", clock);
+			t2.stopTask();
+			t3.startTask("interval", "task 3 interval");
 			Thread.sleep(2000);
-			t3.stopTask(clock);
+			t3.stopTask();
 			clock.stop();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -136,26 +135,26 @@ public class Client {
 		Task t2 = new BasicTask("t2", "p2 task", p2, p2.getActivityList());
 
 		try {
-			Clock clock = new Clock();
+			Clock clock = Clock.getInstance();
 
 			clock.addObserver(t);
 
 			clock.start();
 
-			t3.startTask("interval", "task 3 interval", clock);
+			t3.startTask("interval", "task 3 interval");
 			Thread.sleep(4000);
-			t2.startTask("interval", "task 2 interval", clock);
+			t2.startTask("interval", "task 2 interval");
 			Thread.sleep(2000);
-			t3.stopTask(clock);
+			t3.stopTask();
 			Thread.sleep(2000);
-			t1.startTask("interval", "task 1 interval", clock);
+			t1.startTask("interval", "task 1 interval");
 			Thread.sleep(4000);
-			t1.stopTask(clock);
-			t2.stopTask(clock);
+			t1.stopTask();
+			t2.stopTask();
 			Thread.sleep(4000);
-			t3.startTask("interval", "task 3 interval", clock);
+			t3.startTask("interval", "task 3 interval");
 			Thread.sleep(2000);
-			t3.stopTask(clock);
+			t3.stopTask();
 			clock.stop();
 		} catch (Exception e) {
 			// TODO: handle exception
