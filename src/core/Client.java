@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Logger;
-import ch.qos.logback.core.FileAppender;
 
 
 
@@ -54,25 +53,28 @@ public class Client {
 				break;
 
 			case "4":
-				// root = SerializeData.loadData("lastState");
-				// Interface.printTable(root);
+
 				log.info("Printing last State");
-				Interface t4 = new Interface();
-				setRoot(SerializeData.loadData("lastState"));
+				Project loadedState = new Project();
+				loadedState = SerializeData.loadData("tempState");
+				setRoot(loadedState);		System.out.println("\n");
+				System.out.println("Name\t" + "\tStart Date\t" + "\t\tEnd Date\t" + "\t\tLength\t");
+				System.out.println(
+						"_____________________________________________________________________________________________\n");
 				Interface.printTable(root);
 
 				return;
 
 			case "5":
-
+				log.info("Exiting the program");
 				return;
 
 			default:
 				log.info("Invalid character.");
 				return;
 		}
-
-		SerializeData.saveData(root, "lastState");
+		
+		SerializeData.saveData(root, "lastCompletedState");
 		scanner.close();
 		return;
 	}

@@ -2,6 +2,10 @@ package core;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+
+import org.slf4j.LoggerFactory;
+
+import ch.qos.logback.classic.Logger;
 import core.Activity;
 import core.Project;
 
@@ -11,7 +15,8 @@ public class Project extends Activity implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	
 	private ArrayList<Activity> activityList = new java.util.ArrayList<Activity>();
 
 	public Project() {

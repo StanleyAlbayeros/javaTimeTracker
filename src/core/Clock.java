@@ -5,6 +5,11 @@ import java.io.Serializable;
 import java.util.Observable;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import org.slf4j.LoggerFactory;
+
+import ch.qos.logback.classic.Logger;
+
 import java.util.Date;
 
 public class Clock extends Observable implements Serializable {
@@ -13,7 +18,9 @@ public class Clock extends Observable implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
+	private static Logger log = (Logger) LoggerFactory.getLogger(Client.class);
+	
 	private boolean running = false;
 
 	private Timer timer;
@@ -56,6 +63,7 @@ public class Clock extends Observable implements Serializable {
 			timer.scheduleAtFixedRate(notifier, 0, interval);
 		}
 		length = 0;
+		log.info("Started the clock");
 	}
 
 	public boolean isRunning() {

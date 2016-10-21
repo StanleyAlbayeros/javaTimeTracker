@@ -4,13 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.slf4j.LoggerFactory;
+
+import ch.qos.logback.classic.Logger;
+
 public abstract class Activity implements Serializable {
 
 	/**
 	 * gets rid of the activity warning
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private static Logger log = (Logger) LoggerFactory.getLogger(Activity.class);
 
 	private String description = new java.lang.String();
 
@@ -40,6 +44,7 @@ public abstract class Activity implements Serializable {
 		this.description = description;
 		root.add(this);
 		father.setActivityList(root);
+		log.info("Created activity: " + name + " with the following description: " + description);
 	}
 
 	/**

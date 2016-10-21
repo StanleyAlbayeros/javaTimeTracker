@@ -5,6 +5,10 @@ import java.util.Date;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.slf4j.LoggerFactory;
+
+import ch.qos.logback.classic.Logger;
+
 /**
  * la clase intervalo es la clase que observa el clock segun el patron de dise�o Observer durante la
  * conometracion de la tarea en la variable duracion se guarda el intervalo que es la diferencia
@@ -15,7 +19,7 @@ public class Interval implements Observer, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	private static Logger log = (Logger) LoggerFactory.getLogger(Client.class);
 	private Task fatherTask = null;
 
 	private String name = new java.lang.String();
@@ -34,6 +38,7 @@ public class Interval implements Observer, Serializable {
 		this.description = ndescription;
 		this.startDate = new Date();
 		fatherTask.getIntervalList().add(this);
+		log.info("Created an interval: " + name + " for activity: " + fatherTask.getName());
 	}
 
 	public Interval() {
