@@ -1,10 +1,5 @@
 package mockclient;
 
-import java.io.IOException;
-import java.util.Date;
-import java.util.Scanner;
-
-import org.slf4j.LoggerFactory;
 import ch.qos.logback.classic.Logger;
 import core.BasicTask;
 import core.Clock;
@@ -14,6 +9,11 @@ import core.SerializeData;
 import core.Task;
 import core.TaskSequence;
 import core.TimedTask;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.util.Date;
+import java.util.Scanner;
 
 
 
@@ -22,14 +22,13 @@ public class Client {
   private static Logger log = (Logger) LoggerFactory.getLogger(Client.class);
   public static Scanner scanner = new Scanner(System.in);
 
-  /** Main method that imitates an actual user.
-   * <p> This simulates a user clicking through an interface and using the 
-   * implemented methods.
-   * @param args
-   * @throws InterruptedException
-   * @throws IOException
+  /**
+   * Main method that imitates an actual user.
+   * 
+   * <p>* This simulates a user clicking through an interface and using the implemented methods.
+   * 
    */
-  public static void main(String[] args) throws InterruptedException, IOException {
+  public static void main() throws InterruptedException, IOException {
 
 
     log.info("Starting Main");
@@ -92,7 +91,8 @@ public class Client {
         System.out.println("\n");
         System.out.println("Name\t" + "\tStart Date\t" + "\t\tEnd Date\t" + "\t\tLength\t");
         System.out.println(
-            "_____________________________________________________________________________________________\n");
+            "_______________________________________________________________________________"
+            + "______________\n");
         Interface.printTable(root);
 
         return;
@@ -155,7 +155,7 @@ public class Client {
       Thread.sleep(2000);
       t3.stopTaskInterval();
       clock.stop();
-    } catch (Exception e) {
+    } catch (Exception exception) {
       // TODO: handle exception
     }
   }
@@ -194,7 +194,7 @@ public class Client {
       Thread.sleep(2000);
       t3.stopTaskInterval();
       clock.stop();
-    } catch (Exception e) {
+    } catch (Exception exception) {
       // TODO: handle exception
     }
   }
@@ -223,7 +223,7 @@ public class Client {
       t3.startTaskInterval("interval", "task 3 interval");
       Thread.sleep(26000);
       clock.stop();
-    } catch (Exception e) {
+    } catch (Exception exception) {
       // TODO: handle exception
     }
 
@@ -249,19 +249,20 @@ public class Client {
       Thread.sleep(5000);
       t1.stopTaskInterval();
       clock.stop();
-    } catch (Exception e) {
+    } catch (Exception exception) {
       // TODO: handle exception
     }
   }
 
-  private static void testProgrammedEvent(Interface t) {
-    int i = 2100;
+  @SuppressWarnings("deprecation")
+  private static void testProgrammedEvent(Interface interface1) {
+    int timedifference = 2100;
     Date futureDate = new Date();
-    futureDate.setSeconds(futureDate.getSeconds() + i);
+    futureDate.setSeconds(futureDate.getSeconds() + timedifference);
     Date t1StartDate = futureDate;
 
     Date futureDate2 = new Date();
-    futureDate2.setSeconds(futureDate.getSeconds() + i);
+    futureDate2.setSeconds(futureDate.getSeconds() + timedifference);
     Date t1EndDate = futureDate2;
 
     Project p1 = new Project("p1", "project root", root, root.getActivityList());
@@ -273,7 +274,7 @@ public class Client {
     try {
       Clock clock = Clock.getInstance();
 
-      clock.addObserver(t);
+      clock.addObserver(interface1);
 
       clock.start();
 
@@ -281,7 +282,7 @@ public class Client {
       Thread.sleep(8000);
       t1.stopTaskInterval();
       clock.stop();
-    } catch (Exception e) {
+    } catch (Exception exception) {
       // TODO: handle exception
     }
   }

@@ -1,5 +1,8 @@
 package mockclient;
 
+import core.Activity;
+import core.Project;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -7,15 +10,19 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
-import core.Activity;
-import core.Project;
-
 
 public class Interface implements Observer {
 
   private static String division =
-      "_____________________________________________________________________________________________\n";
+      "_____________________________________________________________"
+      + "________________________________\n";
 
+
+  /* 
+   * Updates the observable.
+   * 
+   * 
+   */
   public void update(Observable observable, Object date) {
     System.out.println("\n");
     System.out.println("Name\t" + "\tStart Date\t" + "\t\tEnd Date\t" + "\t\tLength\t");
@@ -26,7 +33,7 @@ public class Interface implements Observer {
   /**
    * Outputs the current project tree and it's details to the console
    * 
-   * @param root: project tree root.
+   * @param root project tree root.
    */
   public static void printTable(Project root) {
 
@@ -34,27 +41,27 @@ public class Interface implements Observer {
     Iterator<Activity> iter = hoja.iterator();
 
     while (iter.hasNext()) {
-      Activity TempA = iter.next();
-      if (TempA.getLength() == 0) {
-        System.out.println(TempA.getName() + "\t\t" + "Not yet started" + "\t\t\t"
+      Activity tempA = iter.next();
+      if (tempA.getLength() == 0) {
+        System.out.println(tempA.getName() + "\t\t" + "Not yet started" + "\t\t\t"
             + "Not yet started" + "\t\t\t\t");
       } else {
-        System.out.println(TempA.getName() + "\t" + TempA.getStartDate() + "\t" + TempA.getEndDate()
-            + "\t\t" + TempA.getLength() / 1000 + "seg");
+        System.out.println(tempA.getName() + "\t" + tempA.getStartDate() + "\t" + tempA.getEndDate()
+            + "\t\t" + tempA.getLength() / 1000 + "seg");
       }
 
-      if (TempA.getClass() == Project.class) {
-        printTable((Project) TempA);
+      if (tempA.getClass() == Project.class) {
+        printTable((Project) tempA);
       }
     }
   }
 
   /**
-   * Prints the main menu screen and asks for an option input from the console
+   * Prints the main menu screen and asks for an option input from the console.
    * 
-   * @param scanner: single scanner to read console input
+   * @param scanner single scanner to read console input
    * @return selected option
-   * @throws IOException
+   * @throws IOException Input exception
    */
   public static String menuScreen(Scanner scanner) throws IOException {
     System.out.println("********MENU***********");
@@ -74,6 +81,9 @@ public class Interface implements Observer {
 
   }
 
+  /**
+   * Prints the exit screen.
+   */
   public static void exitScreen() {
     System.out.println(division);
     System.out.println(division);
@@ -84,9 +94,9 @@ public class Interface implements Observer {
   }
 
   /**
-   * transitions between the main menu and an option execution
+   * Transitions between the main menu and an option execution.
    * 
-   * @param option: option to print
+   * @param option option to print.
    */
   public static void menuTransition(String option) {
     switch (option) {
