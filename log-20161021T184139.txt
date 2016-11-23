@@ -1,1 +1,0 @@
-[main] INFO  mockClient.Client - Starting Main
