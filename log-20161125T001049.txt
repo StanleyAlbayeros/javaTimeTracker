@@ -1,0 +1,5 @@
+[main] INFO  mockclient.Client - Starting Main
+[main] INFO  mockclient.Client - Read option: 8
+[main] INFO  mockclient.Client - Generating simple txt report
+[main] INFO  mockclient.Client - Trying to load the program's state from: lastCompletedState.bin
+[main] ERROR mockclient.Client - Program's state successfully loaded from: lastCompletedState.bin

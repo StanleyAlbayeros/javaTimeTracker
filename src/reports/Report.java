@@ -1,27 +1,26 @@
 package reports;
 
 import core.Project;
-import reportelements.ElementInterface;
+import reports.elements.ElementInterface;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 
 public abstract class Report {
   
-  protected TimePeriod timePeriod;
   protected Project project;
-  protected LinkedList<ElementInterface> reportElements;
+  protected ArrayList<ElementInterface> reportElements;
   
   /** Constructor for the report class.
    * 
-   * @param timePeriod Desired time period for the project report.
    * @param project Project used to generate the report.
    */
-  public Report(TimePeriod timePeriod, Project project) {
-    assert ((timePeriod != null) && (project != null));
-    this.timePeriod = timePeriod;
+  public Report(Project project) {
+    assert (project != null);
     this.project = project;
-    reportElements = new LinkedList<ElementInterface>();
+    reportElements = new ArrayList<ElementInterface>();
     
   }
 

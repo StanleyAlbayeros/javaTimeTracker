@@ -9,6 +9,11 @@ import core.SerializeData;
 import core.Task;
 import core.TaskSequence;
 import core.TimedTask;
+import reports.Formatting;
+import reports.Report;
+import reports.SimplifiedReport;
+import reports.TxtFormatting;
+
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
@@ -98,6 +103,18 @@ public class Client {
         return;
 
       case "8":
+        log.info("Generating simple txt report");
+        Project a1Project = SerializeData.loadData("A1FinalState");
+        setRoot(a1Project);
+        String filename = "simpleTXTreport.txt";
+        Formatting txt = new TxtFormatting(filename);
+        String reportTitle = "A1 project report";
+        Report txtReport = new SimplifiedReport(a1Project, reportTitle);
+        txtReport.writeReport(txt);
+        
+        return;
+        
+      case "9":
         log.info("Exiting the program");
         Interface.exitScreen();
         return;

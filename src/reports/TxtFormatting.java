@@ -1,33 +1,73 @@
 package reports;
 
-import reportelements.Separator;
-import reportelements.Subtitle;
-import reportelements.Title;
+import reports.elements.Separator;
+import reports.elements.Subtitle;
+import reports.elements.Table;
+import reports.elements.Text;
+import reports.elements.Title;
+
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 public class TxtFormatting implements Formatting {
+  
+  protected PrintWriter fileOut;
+  
+  protected Text reportContent = new Text();
 
-  @Override
-  public void closeReport() {
-    // TODO Auto-generated method stub
-
+  private boolean isCentered = true;
+  
+  /** Class constructor. It also creates an output file.
+   * 
+   * @param filename File's name.
+   * @throws FileNotFoundException The file was not found or couldn't be created.
+   */
+  public TxtFormatting(String filename) throws FileNotFoundException {
+    assert ( reportFilenameCheck(filename) ) : "Filename not valid";
+    fileOut = new PrintWriter(filename);
+    isCentered = true;    
+  }    
+  
+  private boolean reportFilenameCheck(String filename) {
+    boolean pass = false;
+    
+    if (filename != null) {
+      pass = true;
+    }
+    
+    return pass;
   }
 
   @Override
   public void visit(Separator separator) {
-    // TODO Auto-generated method stub
-    
+    reportContent.addUnderscoreLine();
   }
 
   @Override
   public void visit(Subtitle subtitle) {
-    // TODO Auto-generated method stub
-    
+    reportContent.addSubtitle(subtitle.getContent(), isCentered);    
   }
 
   @Override
   public void visit(Title title) {
-    // TODO Auto-generated method stub
-    
+    reportContent.addTitle(title.getContent(), isCentered);
+  }
+
+  @Override
+  public void visit(Table table) {
+    reportContent.addTable(table.getTable());
+  }
+
+  @Override
+  public void visit(Text text) {
+    // Empty method.
+  }
+
+
+  @Override
+  public void closeReport() {
+    fileOut.print(reportContent.getContent());
+    fileOut.close();
   }
 
 }

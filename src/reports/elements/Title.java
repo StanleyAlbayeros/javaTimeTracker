@@ -1,12 +1,12 @@
-package reportelements;
+package reports.elements;
 
 import reports.Formatting;
 
-public class Subtitle implements ElementInterface {
+public class Title implements ElementInterface {
   
-  private String content;
+  private String content = " ";
   
-  public Subtitle(String content) {
+  public Title(String content) {
     assert (content != null);
     this.content = content;
   }

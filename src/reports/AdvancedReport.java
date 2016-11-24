@@ -4,8 +4,8 @@ import core.Project;
 
 public class AdvancedReport extends Report {
 
-  public AdvancedReport(TimePeriod timePeriod, Project project) {
-    super(timePeriod, project);
+  public AdvancedReport(Project project) {
+    super(project);
     // TODO Auto-generated constructor stub
   }
     

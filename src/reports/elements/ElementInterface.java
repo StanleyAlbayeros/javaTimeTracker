@@ -1,4 +1,4 @@
-package reportelements;
+package reports.elements;
 
 import reports.Formatting;
 

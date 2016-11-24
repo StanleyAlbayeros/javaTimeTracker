@@ -1,8 +1,10 @@
 package reports;
 
-import reportelements.Separator;
-import reportelements.Subtitle;
-import reportelements.Title;
+import reports.elements.Separator;
+import reports.elements.Subtitle;
+import reports.elements.Table;
+import reports.elements.Text;
+import reports.elements.Title;
 
 /** Visitor interface.
  * 
@@ -18,5 +20,9 @@ public interface Formatting {
   void visit(Subtitle subtitle);  
 
   void visit(Title title);
+
+  void visit(Table table);
+
+  void visit(Text text);
   
 }

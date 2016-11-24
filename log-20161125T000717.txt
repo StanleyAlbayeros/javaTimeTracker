@@ -1,0 +1,6 @@
+[main] INFO  mockclient.Client - Starting Main
+[main] INFO  mockclient.Client - Read option: 1
+[main] INFO  mockclient.Client - Loading saved state
+[main] INFO  mockclient.Client - Trying to load the program's state from: lastCompletedState.bin.bin
+[main] ERROR mockclient.Client - Failed read the file: lastCompletedState.bin.bin, it does not exist
+[main] ERROR mockclient.Client - Program's state successfully loaded from: lastCompletedState.bin.bin
