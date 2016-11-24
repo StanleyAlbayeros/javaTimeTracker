@@ -22,7 +22,9 @@ public class Attribute {
        * Get the value of value.
        * @return Value of value.
        */
-    public String getValue() {return value;}
+    public String getValue() {
+      return value;
+      }
     
     /**
        * Set the value of value.

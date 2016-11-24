@@ -28,7 +28,7 @@ public class Client {
    * <p>* This simulates a user clicking through an interface and using the implemented methods.
    * 
    */
-  public static void main() throws InterruptedException, IOException {
+  public static void main(String[] args) throws InterruptedException, IOException {
 
 
     log.info("Starting Main");

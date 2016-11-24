@@ -1,0 +1,41 @@
+[main] INFO  mockclient.Client - Starting Main
+[main] INFO  mockclient.Client - Read option: 5
+[main] INFO  mockclient.Client - Running Decorator test: Task Sequence
+[main] INFO  core.Activity - Created activity: p1 with the following description: project root
+[main] INFO  core.Activity - Created activity: p2 with the following description: root project subproject
+[main] INFO  core.Activity - Created activity: t2 with the following description: p2 task
+[main] INFO  core.Task - Task: t2. Type: BasicTask created.
+[main] INFO  core.Activity - Created activity: t1 with the following description: root project task
+[main] INFO  core.Task - Task: t1. Type: TaskSequence created.
+[main] INFO  core.Clock - Creating single Clock instance
+[main] INFO  core.Clock - Started the clock
+[main] INFO  core.Task - Starting the task: interval with description: task 1 interval
+[main] INFO  mockclient.Client - Created an interval: interval for activity: t1
+[main] INFO  core.Task - Task: interval. Type: TaskSequence started succesfully
+[main] INFO  core.Task - Starting the task: t2 with description: p2 task
+[main] INFO  mockclient.Client - Created an interval: t2 for activity: t2
+[main] INFO  core.Task - Task: t2. Type: BasicTask started succesfully
+[main] INFO  core.Task - Stopping the task: t1 with description: root project task
+[main] INFO  mockclient.Client - Trying to save the program's state in: tempState.bin
+[main] INFO  mockclient.Client - File tempState.bin created succesfully, saving
+[main] INFO  mockclient.Client - Program's state successfully saved in: tempState.bin
+[main] INFO  mockclient.Client - Trying to save the program's state in: tempState.bin
+[main] INFO  mockclient.Client - File tempState.bin created succesfully, saving
+[main] INFO  mockclient.Client - Program's state successfully saved in: tempState.bin
+[main] INFO  core.Task - Task: t1 stopped
+[main] INFO  core.TaskSequence - Task: t1 stopped
+[main] INFO  core.Task - Starting the task: t2 with description: p2 task
+[main] INFO  mockclient.Client - Created an interval: t2 for activity: t2
+[main] INFO  core.Task - Task: t2. Type: BasicTask started succesfully
+[main] INFO  core.Task - Stopping the task: t1 with description: root project task
+[main] INFO  mockclient.Client - Trying to save the program's state in: tempState.bin
+[main] INFO  mockclient.Client - File tempState.bin created succesfully, saving
+[main] INFO  mockclient.Client - Program's state successfully saved in: tempState.bin
+[main] INFO  mockclient.Client - Trying to save the program's state in: tempState.bin
+[main] INFO  mockclient.Client - File tempState.bin created succesfully, saving
+[main] INFO  mockclient.Client - Program's state successfully saved in: tempState.bin
+[main] INFO  core.Task - Task: t1 stopped
+[main] INFO  core.TaskSequence - Task: t1 stopped
+[main] INFO  mockclient.Client - Trying to save the program's state in: lastCompletedState.bin
+[main] INFO  mockclient.Client - File lastCompletedState.bin created succesfully, saving
+[main] INFO  mockclient.Client - Program's state successfully saved in: lastCompletedState.bin
