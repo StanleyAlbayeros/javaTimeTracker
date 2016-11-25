@@ -94,7 +94,6 @@ public class Client {
 
         log.info("Printing last State");
         printLastState();
-
         return;
 
       case "8":
@@ -110,7 +109,6 @@ public class Client {
         String loadBin = "";
         loadBin = scanner.nextLine();
         generateSimpleTxtReport(filename, loadBin);
-
         return;
 
       case "9":
