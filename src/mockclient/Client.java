@@ -10,6 +10,7 @@ import core.Task;
 import core.TaskSequence;
 import core.TimedTask;
 import reports.Formatting;
+import reports.HtmlFormatting;
 import reports.Report;
 import reports.SimplifiedReport;
 import reports.TxtFormatting;
@@ -101,17 +102,32 @@ public class Client {
         String filename = "";
         System.out.println(
             "Write the filename you wish to save: (press Enter for the default simpleTXTreport file"
-            + "name)");
+                + "name)");
         filename = scanner.nextLine();
         System.out.println(
             "Write the saved state you want to load: (press Enter to load the default saved "
-            + "A1 test.)");
+                + "A1 test.)");
         String loadBin = "";
         loadBin = scanner.nextLine();
         generateSimpleTxtReport(filename, loadBin);
         return;
 
       case "9":
+        log.info("Generating simple txt report");
+        String filename1 = "";
+        System.out.println(
+            "Write the filename you wish to save: (press Enter for the default simpleTXTreport file"
+                + "name)");
+        filename1 = scanner.nextLine();
+        System.out.println(
+            "Write the saved state you want to load: (press Enter to load the default saved "
+                + "A1 test.)");
+        String loadBin1 = "";
+        loadBin1 = scanner.nextLine();
+        generateDetailedHtmlReport(filename1, loadBin1);
+        return;
+
+      case "10":
         log.info("Exiting the program");
         Interface.exitScreen();
         return;
@@ -127,6 +143,34 @@ public class Client {
     scanner.close();
     return;
   }
+
+
+
+
+  /**
+   * Calls the necessary methods to generate a simple txt format report.
+   * 
+   * @throws FileNotFoundException The specified file was not found.
+   */
+  private static void generateDetailedHtmlReport(String filename, String loadBin)
+      throws FileNotFoundException {
+    if (loadBin.isEmpty()) {
+      loadBin = "A1FinalState";
+    }
+    Project a1Project = SerializeData.loadData(loadBin);
+    setRoot(a1Project);
+    if (filename.isEmpty()) {
+      filename = "simpleTXTreport.html";
+    }
+    Formatting html = new HtmlFormatting(filename);
+    String reportTitle = "A1 project report";
+    Report txtReport = new SimplifiedReport(root, reportTitle, root.getActivityList());
+    txtReport.writeReport(html);
+    log.info("Exiting the program");
+    Interface.exitScreen();
+  }
+
+
 
 
 

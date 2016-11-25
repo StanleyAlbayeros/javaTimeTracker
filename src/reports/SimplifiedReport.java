@@ -16,7 +16,6 @@ public class SimplifiedReport extends Report {
   protected String reportTitle;
   final Table table;
 
-
   /**
    * Generates a simplified report object.
    * 
@@ -30,8 +29,6 @@ public class SimplifiedReport extends Report {
     table = new Table();
     reportElements.add(new Separator());
     reportElements.add(new Title(reportTitle));
-    reportElements.add(new Separator());
-    reportElements.add(new Subtitle("Report time Period"));
     ArrayList<String> dateRow = new ArrayList<String>();
     dateRow.add("");
     dateRow.add("Date");
@@ -49,8 +46,21 @@ public class SimplifiedReport extends Report {
     descriptionRow.add("Project start date");
     descriptionRow.add("Project end date");
     descriptionRow.add("Total time length");
-    table.addTableRow(descriptionRow);
+    table.addTableRow(descriptionRow);    
+    reportElements.add(table);
+    Table projectTable = generateProjectTable(project);
+    reportElements.add(projectTable);
 
+
+  }
+
+
+  /** Generates a table with project elements.
+   * 
+   * @param project project from where we will look for more projects.
+   */
+  private Table generateProjectTable(Project project) {
+    Table table = new Table();
     ArrayList<Project> activityList = project.getProjectTree();
 
     for (Activity currentActivity : activityList) {
@@ -83,9 +93,7 @@ public class SimplifiedReport extends Report {
 
       }
     }
-
-    reportElements.add(table);
-
+    return table;
   }
 
 }

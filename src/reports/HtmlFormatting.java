@@ -10,6 +10,8 @@ import reports.elements.Title;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 
+import javax.sql.rowset.WebRowSet;
+
 
 
 public class HtmlFormatting implements Formatting {
@@ -71,6 +73,8 @@ public class HtmlFormatting implements Formatting {
 
   @Override
   public void closeReport() {
+    //fileOut.print(reportContent.escriuPagina());
+    reportContent.escriuPagina();
     fileOut.close();
   }
 

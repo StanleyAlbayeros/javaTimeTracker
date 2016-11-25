@@ -1,9 +1,9 @@
 package reports.elements;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import reports.Formatting;
+
+import java.util.ArrayList;
+
 
 public class Text implements ElementInterface {
   
@@ -30,6 +30,9 @@ public class Text implements ElementInterface {
     content = content + lineBreak;
   }
   
+  /**
+   * Adds a + sign lign to separate table elements.
+   */
   public void addSeparationLine() {  
     addLineBreak();
     for (int i = 0 ; i <= 80 ; i++) {
@@ -55,9 +58,13 @@ public class Text implements ElementInterface {
     }
   }
   
-  public void addTitle(String newText, boolean centered){
+  /** Adds a table title.
+   * @param newText title.
+   * @param centered center the title within the cell.
+   */
+  public void addTitle(String newText, boolean centered) {
     assert (newText != null);
-    if (centered){
+    if (centered) {
       centerElement(newText, 30);
     } else {
       content = content + newText;
@@ -65,6 +72,10 @@ public class Text implements ElementInterface {
     addSeparationLine();
   }
   
+  /** Adds a table subtitle.
+   * @param newText subtitle.
+   * @param centered center the subtitle within the cell.
+   */
   public void addSubtitle(String newText, boolean centered) {
     assert (newText != null);
     if (centered) {
@@ -75,6 +86,9 @@ public class Text implements ElementInterface {
     addLineBreak();
   }
   
+  /** Adds a table.
+   * @param newTable the new table.
+   */
   public void addTable(ArrayList<ArrayList<String>> newTable) {
     assert (newTable != null);
 
