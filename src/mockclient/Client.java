@@ -9,6 +9,7 @@ import core.SerializeData;
 import core.Task;
 import core.TaskSequence;
 import core.TimedTask;
+import reports.AdvancedReport;
 import reports.Formatting;
 import reports.HtmlFormatting;
 import reports.Report;
@@ -155,16 +156,16 @@ public class Client {
   private static void generateDetailedHtmlReport(String filename, String loadBin)
       throws FileNotFoundException {
     if (loadBin.isEmpty()) {
-      loadBin = "A1FinalState";
+      loadBin = "A2FinalState";
     }
     Project a1Project = SerializeData.loadData(loadBin);
     setRoot(a1Project);
     if (filename.isEmpty()) {
-      filename = "simpleTXTreport.html";
+      filename = "advancedHTMLreport.html";
     }
     Formatting html = new HtmlFormatting(filename);
-    String reportTitle = "A1 project report";
-    Report txtReport = new SimplifiedReport(root, reportTitle, root.getActivityList());
+    String reportTitle = "A2 project report";
+    Report txtReport = new AdvancedReport(root, reportTitle, root.getActivityList());
     txtReport.writeReport(html);
     log.info("Exiting the program");
     Interface.exitScreen();

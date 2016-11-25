@@ -21,7 +21,7 @@ public class AdvancedReport extends Report {
    * @param project Root project.
    * @param reportTitle Report object's title.
    */
-  public AdvancedReport(Project project, String reportTitle) {
+  public AdvancedReport(Project project, String reportTitle, ArrayList<Activity> projectTree) {
     super(project);
     assert (reportTitle != null) : "Report title is null";
     this.reportTitle = reportTitle;
@@ -40,13 +40,8 @@ public class AdvancedReport extends Report {
     table.addTableRow(dateRow);
     table.addTableRow(dateSubRow);
     table.addTableRow(dateSubRow2);
-    ArrayList<String> descriptionRow = new ArrayList<String>();
-    descriptionRow.add("Project name");
-    descriptionRow.add("Project start date");
-    descriptionRow.add("Project end date");
-    descriptionRow.add("Total time length");
-    table.addTableRow(descriptionRow);
     reportElements.add(table);
+    
     Table projectTable = generateProjectTable(project);
     reportElements.add(projectTable);
     
@@ -62,13 +57,13 @@ public class AdvancedReport extends Report {
     ArrayList<String> taskRow = generateTaskTable(project);
     int rowCount = 0;
     for (String taskAtHand : taskRow) {
+      rowCount++;
       singleTask.add(taskAtHand);
-      if ( rowCount == 3 ) {
+      if ( rowCount == 4 ) {
         taskTable.addTableRow(singleTask);
         singleTask = new ArrayList<String>();
-        rowCount--;
+        rowCount = 0;
       }
-      rowCount++;
     }      
     reportElements.add(taskTable);
   }
@@ -80,6 +75,12 @@ public class AdvancedReport extends Report {
    */
   private Table generateProjectTable(Project project) {
     Table table = new Table();
+    ArrayList<String> descriptionRow = new ArrayList<String>();
+    descriptionRow.add("Project name");
+    descriptionRow.add("Project start date");
+    descriptionRow.add("Project end date");
+    descriptionRow.add("Total time length");
+    table.addTableRow(descriptionRow);
     ArrayList<Project> activityList = project.getProjectTree();
 
     for (Activity currentActivity : activityList) {
@@ -125,25 +126,21 @@ public class AdvancedReport extends Report {
     ArrayList<String> taskList = new ArrayList<String>();
     ArrayList<Project> activityList = project.getProjectTree();
 
-    for (Activity currentActivity : activityList) {
-
-      ArrayList<String> newRow = new ArrayList<>();
-
-      if (currentActivity.getClass() == Project.class) {
-        ArrayList<Task> tmpList = ((Project) currentActivity).getTaskList();
-        if (tmpList != null) {
-          for (Task currentTask : tmpList) {
-            taskList.add(currentTask.getName());
-            taskList.add(currentActivity.getStartDate().toString());
-            taskList.add(currentActivity.getEndDate().toString());
-
-            long currentProjectLength = currentTask.getLength() / 1000;
-            taskList.add(Long.toString(currentProjectLength));
-            taskList.add(currentTask.getName());
+    if (activityList != null) {
+      for (Activity currentActivity : activityList) {
+        ArrayList<String> newRow = new ArrayList<>();
+        if (currentActivity.getClass() == Project.class) {
+          ArrayList<Task> tmpList = ((Project) currentActivity).getTaskList();
+          if (tmpList != null) {
+            for (Task currentTask : tmpList) {
+              taskList.add(currentTask.getName()+ "." + currentTask.getFather().getName());
+              taskList.add(currentActivity.getStartDate().toString());
+              taskList.add(currentActivity.getEndDate().toString());long currentProjectLength = currentTask.getLength() / 1000;
+              taskList.add(Long.toString(currentProjectLength));
+            }
           }
-          taskList.addAll(generateTaskTable(project));
         }
-      }
+      } 
     }
     return taskList;
   }

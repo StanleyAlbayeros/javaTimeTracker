@@ -1,0 +1,6 @@
+[main] INFO  mockclient.Client - Starting Main
+[main] INFO  mockclient.Client - Read option: 9
+[main] INFO  mockclient.Client - Generating simple txt report
+[main] INFO  mockclient.Client - Trying to load the program's state from: A1FinalState.bin
+[main] ERROR mockclient.Client - Program's state successfully loaded from: A1FinalState.bin
+[main] INFO  mockclient.Client - Exiting the program
