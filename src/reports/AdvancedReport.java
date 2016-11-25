@@ -1,6 +1,7 @@
 package reports;
 
 import core.Activity;
+import core.Interval;
 import core.Project;
 import core.Task;
 import reports.elements.Separator;
@@ -45,6 +46,7 @@ public class AdvancedReport extends Report {
     Table projectTable = generateProjectTable(project);
     reportElements.add(projectTable);
     
+    /////////////////////////////TASKS////////////////////////////////////////////
     reportElements.add(new Subtitle("Tasks"));
     ArrayList<String> row = new ArrayList<>();
     ArrayList<String> singleTask = new ArrayList<>();
@@ -53,7 +55,7 @@ public class AdvancedReport extends Report {
     row.add("End Date: ");
     Table taskTable = new Table();
     row.add("Total Length");
-    taskTable.addTableRow(row);
+    taskTable.addTableRow(row);    
     ArrayList<String> taskRow = generateTaskTable(project);
     int rowCount = 0;
     for (String taskAtHand : taskRow) {
@@ -66,6 +68,30 @@ public class AdvancedReport extends Report {
       }
     }      
     reportElements.add(taskTable);
+    
+
+    /////////////////////////////INTERVALS////////////////////////////////////////////
+    reportElements.add(new Subtitle("Intervals"));
+    ArrayList<String> row1 = new ArrayList<>();
+    ArrayList<String> singleinterval = new ArrayList<>();
+    row1.add("Tasks");
+    row1.add("Start Date: ");
+    row1.add("End Date: ");
+    Table intervalTable = new Table();
+    row1.add("Total Length");
+    intervalTable.addTableRow(row1);    
+    ArrayList<String> intervalRow = generateTimeIntervalsList(project);
+    int rowCount1 = 0;
+    for (String taskAtHand : intervalRow) {
+      rowCount1++;
+      singleinterval.add(taskAtHand);
+      if ( rowCount1 == 4 ) {
+        intervalTable.addTableRow(singleinterval);
+        singleinterval = new ArrayList<String>();
+        rowCount1 = 0;
+      }
+    }      
+    reportElements.add(intervalTable);      
   }
 
   /**
@@ -74,12 +100,12 @@ public class AdvancedReport extends Report {
    * @param project project from where we will look for more projects.
    */
   private Table generateProjectTable(Project project) {
-    Table table = new Table();
     ArrayList<String> descriptionRow = new ArrayList<String>();
     descriptionRow.add("Project name");
     descriptionRow.add("Project start date");
     descriptionRow.add("Project end date");
     descriptionRow.add("Total time length");
+    Table table = new Table();
     table.addTableRow(descriptionRow);
     ArrayList<Project> activityList = project.getProjectTree();
 
@@ -133,9 +159,10 @@ public class AdvancedReport extends Report {
           ArrayList<Task> tmpList = ((Project) currentActivity).getTaskList();
           if (tmpList != null) {
             for (Task currentTask : tmpList) {
-              taskList.add(currentTask.getName()+ "." + currentTask.getFather().getName());
+              taskList.add(currentTask.getName() + "." + currentTask.getFather().getName());
               taskList.add(currentActivity.getStartDate().toString());
-              taskList.add(currentActivity.getEndDate().toString());long currentProjectLength = currentTask.getLength() / 1000;
+              taskList.add(currentActivity.getEndDate().toString());
+              long currentProjectLength = currentTask.getLength() / 1000;
               taskList.add(Long.toString(currentProjectLength));
             }
           }
@@ -145,4 +172,39 @@ public class AdvancedReport extends Report {
     return taskList;
   }
 
+  /**
+   * Generates a list with a project's intervals.
+   * 
+   * @param project root project.
+   */
+  private ArrayList<String> generateTimeIntervalsList(Project project) {
+
+    ArrayList<String> intervalList = new ArrayList<String>();
+    ArrayList<Project> activityList = project.getProjectTree();
+
+    if (activityList != null) {
+      for (Activity currentActivity : activityList) {
+        ArrayList<String> newRow = new ArrayList<>();
+        if (currentActivity.getClass() == Project.class) {
+          ArrayList<Task> taskList = ((Project) currentActivity).getTaskList();
+          if (taskList != null) {
+            int taskNumber = 1;
+            for (Task currentTask : taskList) {
+              ArrayList<Interval> tempIntervalList = currentTask.getIntervalList();
+              for (Interval currentInterval : tempIntervalList) {
+                intervalList.add("Time interval: " + currentInterval.getName() + "."
+                    + currentTask.getFather().getName());
+                intervalList.add(currentInterval.getStartDate().toString());
+                intervalList.add(currentInterval.getEndDate().toString());
+                long currentIntervalLength = currentInterval.getLength() / 1000;
+                intervalList.add(Long.toString(currentIntervalLength));
+              }
+            }
+          }
+        }
+      } 
+    }
+    return intervalList;
+  }
+  
 }

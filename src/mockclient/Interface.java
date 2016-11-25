@@ -73,7 +73,10 @@ public class Interface implements Observer {
     System.out.println("6 - Run Decorator test: Timed Task.");
     System.out.println("7 - Print previous state.");
     System.out.println("8 - Generate simplified TXT report.");
-    System.out.println("9 - Exit.");
+    System.out.println("9 - Generate advanced TXT report.");
+    System.out.println("10 - Generate simplified HTML report.");
+    System.out.println("11 - Generate advanced HTML report.");
+    System.out.println("12 - Exit.");
     System.out.println(division);
 
 
@@ -154,8 +157,26 @@ public class Interface implements Observer {
         System.out.println("Generating simplified TXT file");
         System.out.println(division);
         return;
-
+        
       case "9":
+        System.out.println(division);
+        System.out.println("Generating advanced TXT file");
+        System.out.println(division);
+        return;
+        
+      case "10":
+        System.out.println(division);
+        System.out.println("Generating simplified HTML file");
+        System.out.println(division);
+        return;
+        
+      case "11":
+        System.out.println(division);
+        System.out.println("Generating advanced HTML file");
+        System.out.println(division);
+        return;
+
+      case "12":
         System.out.println(division);
         System.out.println("Goodbye");
         System.out.println(division);

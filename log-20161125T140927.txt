@@ -1,0 +1,6 @@
+[main] INFO  mockclient.Client - Starting Main
+[main] INFO  mockclient.Client - Read option: 10
+[main] INFO  mockclient.Client - Generating simple html report
+[main] INFO  mockclient.Client - Trying to load the program's state from: A2FinalState.bin
+[main] ERROR mockclient.Client - Program's state successfully loaded from: A2FinalState.bin
+[main] INFO  mockclient.Client - Exiting the program

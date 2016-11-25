@@ -34,8 +34,7 @@ public class Client {
   /**
    * Main method that imitates an actual user.
    * 
-   * <p>
-   * * This simulates a user clicking through an interface and using the implemented methods.
+   * <p>This simulates a user clicking through an interface and using the implemented methods.
    * 
    */
   public static void main(String[] args) throws InterruptedException, IOException {
@@ -112,12 +111,13 @@ public class Client {
         loadBin = scanner.nextLine();
         generateSimpleTxtReport(filename, loadBin);
         return;
-
+        
       case "9":
         log.info("Generating simple txt report");
         String filename1 = "";
         System.out.println(
-            "Write the filename you wish to save: (press Enter for the default simpleTXTreport file"
+            "Write the filename you wish to save: "
+            + "(press Enter for the default advancedTXTreport file"
                 + "name)");
         filename1 = scanner.nextLine();
         System.out.println(
@@ -125,10 +125,39 @@ public class Client {
                 + "A1 test.)");
         String loadBin1 = "";
         loadBin1 = scanner.nextLine();
-        generateDetailedHtmlReport(filename1, loadBin1);
+        generateAdvancedTxtReport(filename1, loadBin1);
         return;
 
       case "10":
+        log.info("Generating simple html report");
+        String filename11 = "";
+        System.out.println("Write the filename you wish to save: "
+            + "(press Enter for the default simpleHTMLreport.txt file" + "name)");
+        filename11 = scanner.nextLine();
+        System.out.println(
+            "Write the saved state you want to load: (press Enter to load the default saved "
+                + "A1 test.)");
+        String loadBin11 = "";
+        loadBin11 = scanner.nextLine();
+        generateSimpleHtmlReport(filename11, loadBin11);
+
+        return;
+
+      case "11":
+        log.info("Generating advanced html report");
+        String filename111 = "";
+        System.out.println("Write the filename you wish to save: "
+            + "(press Enter for the default advancedHTMLreport file" + "name)");
+        filename111 = scanner.nextLine();
+        System.out.println(
+            "Write the saved state you want to load: (press Enter to load the default saved "
+                + "A1 test.)");
+        String loadBin111 = "";
+        loadBin111 = scanner.nextLine();
+        generateDetailedHtmlReport(filename111, loadBin111);
+        return;
+
+      case "12":
         log.info("Exiting the program");
         Interface.exitScreen();
         return;
@@ -147,6 +176,28 @@ public class Client {
 
 
 
+  /**
+   * Calls the necessary methods to generate a simple txt format report.
+   * 
+   * @throws FileNotFoundException The specified file was not found.
+   */
+  private static void generateSimpleHtmlReport(String filename, String loadBin)
+      throws FileNotFoundException {
+    if (loadBin.isEmpty()) {
+      loadBin = "A2FinalState";
+    }
+    Project a1Project = SerializeData.loadData(loadBin);
+    setRoot(a1Project);
+    if (filename.isEmpty()) {
+      filename = "simpleHTMLreport.html";
+    }
+    Formatting html = new HtmlFormatting(filename);
+    String reportTitle = "A2 simple project report";
+    Report txtReport = new SimplifiedReport(root, reportTitle, root.getActivityList());
+    txtReport.writeReport(html);
+    log.info("Exiting the program");
+    Interface.exitScreen();
+  }
 
   /**
    * Calls the necessary methods to generate a simple txt format report.
@@ -164,7 +215,7 @@ public class Client {
       filename = "advancedHTMLreport.html";
     }
     Formatting html = new HtmlFormatting(filename);
-    String reportTitle = "A2 project report";
+    String reportTitle = "A2 advanced project report";
     Report txtReport = new AdvancedReport(root, reportTitle, root.getActivityList());
     txtReport.writeReport(html);
     log.info("Exiting the program");
@@ -173,10 +224,8 @@ public class Client {
 
 
 
-
-
   /**
-   * 
+   * Loads the last known state of the program.
    */
   private static void printLastState() {
     Project loadedState = new Project();
@@ -210,6 +259,29 @@ public class Client {
     Formatting txt = new TxtFormatting(filename);
     String reportTitle = "A1 project report";
     Report txtReport = new SimplifiedReport(root, reportTitle, root.getActivityList());
+    txtReport.writeReport(txt);
+    log.info("Exiting the program");
+    Interface.exitScreen();
+  }
+  
+  /**
+   * Calls the necessary methods to generate a simple txt format report.
+   * 
+   * @throws FileNotFoundException The specified file was not found.
+   */
+  private static void generateAdvancedTxtReport(String filename, String loadBin)
+      throws FileNotFoundException {
+    if (loadBin.isEmpty()) {
+      loadBin = "A1FinalState";
+    }
+    Project a1Project = SerializeData.loadData(loadBin);
+    setRoot(a1Project);
+    if (filename.isEmpty()) {
+      filename = "advancedTXTreport.txt";
+    }
+    Formatting txt = new TxtFormatting(filename);
+    String reportTitle = "A1 advanced project report";
+    Report txtReport = new AdvancedReport(root, reportTitle, root.getActivityList());
     txtReport.writeReport(txt);
     log.info("Exiting the program");
     Interface.exitScreen();

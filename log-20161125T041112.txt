@@ -1,3 +1,0 @@
-[main] INFO  mockclient.Client - Starting Main
-[main] INFO  mockclient.Client - Read option: 9
-[main] INFO  mockclient.Client - Generating simple txt report
