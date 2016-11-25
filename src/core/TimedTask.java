@@ -21,6 +21,7 @@ public class TimedTask extends SpecialTask implements Serializable {
   public TimedTask(String name, String description, Project father, ArrayList<Activity> root,
       int ntimeLimit) {
     super(name, description, father, root, "TimedTask");
+    assert ((name != null) && (description != null) && (father != null));
 
     timeLimit = ntimeLimit;
   }

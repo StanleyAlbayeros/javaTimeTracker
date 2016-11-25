@@ -26,6 +26,7 @@ public class ProgrammedEvent extends SpecialTask implements Serializable {
   public ProgrammedEvent(String name, String description, Project father, ArrayList<Activity> root,
       Date nstartingDate, Date nendingDate) {
     super(name, description, father, root, "ProgrammedEvent");
+    assert ((name != null) && (description != null) && (father != null));
     startingDate = nstartingDate;
     endingDate = nendingDate;
   }

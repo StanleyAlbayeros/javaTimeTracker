@@ -23,7 +23,9 @@ public class SimplifiedReport extends Report {
    * @param reportTitle Report object's title.
    */
   public SimplifiedReport(Project project, String reportTitle, ArrayList<Activity> projectTree) {
+    
     super(project);
+    assert ((project != null) && (reportTitle != null) && (projectTree != null));
     assert (reportTitle != null) : "Report title is null";
     this.reportTitle = reportTitle;
     table = new Table();

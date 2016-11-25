@@ -26,6 +26,7 @@ public class SerializeData {
    * @param name Desired filename.
    */
   public static void saveData(Project root, String name) {
+    assert ((name != null));
     String filename = name;
     filename = filename + ".bin";
     File file = new File(filename);

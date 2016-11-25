@@ -28,6 +28,7 @@ public class TaskSequence extends SpecialTask implements Serializable {
   public TaskSequence(String name, String description, Project father, ArrayList<Activity> root,
       Task nnextTask) {
     super(name, description, father, root, "TaskSequence");
+    assert ((name != null) && (description != null) && (father != null));
 
     nextTask = nnextTask;
   }

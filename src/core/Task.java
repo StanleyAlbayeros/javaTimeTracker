@@ -36,6 +36,7 @@ public abstract class Task extends Activity implements Serializable {
   public Task(String name, String description, Project father, ArrayList<Activity> root,
       String ntaskType) {
     super(name, description, father, root);
+    assert ((name != null) && (description != null) && (father != null));
     setTaskType(ntaskType);
     this.setStartDate(new Date());
 

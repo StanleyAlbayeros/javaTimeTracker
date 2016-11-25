@@ -46,6 +46,7 @@ public class Interval implements Observer, Serializable {
     this.description = description;
     startDate = new Date();
     this.fatherTask.getIntervalList().add(this);
+    assert ((name != null) && (description != null) && (fatherTask != null));
     log.info("Created an interval: " + name + " for activity: " + fatherTask.getName());
   }
 

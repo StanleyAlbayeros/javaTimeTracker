@@ -20,6 +20,7 @@ public abstract class SpecialTask extends Task implements Serializable {
   public SpecialTask(String name, String description, Project father, ArrayList<Activity> root,
       String taskType) {
     super(name, description, father, root, taskType);
+    assert ((name != null) && (description != null) && (father != null));
   }
 
   /**
