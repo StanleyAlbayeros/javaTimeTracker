@@ -40,7 +40,7 @@ public class TxtFormatting implements Formatting {
 
   @Override
   public void visit(Separator separator) {
-    reportContent.addUnderscoreLine();
+    reportContent.addSeparationLine();
   }
 
   @Override

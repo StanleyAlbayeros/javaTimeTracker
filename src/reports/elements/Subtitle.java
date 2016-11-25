@@ -4,7 +4,7 @@ import reports.Formatting;
 
 public class Subtitle implements ElementInterface {
   
-  private String content;
+  private String content = "";
   
   public Subtitle(String content) {
     assert (content != null);

@@ -9,11 +9,12 @@ import java.util.List;
 
 
 public abstract class Report {
-  
+
   protected Project project;
   protected ArrayList<ElementInterface> reportElements;
-  
-  /** Constructor for the report class.
+
+  /**
+   * Constructor for the report class.
    * 
    * @param project Project used to generate the report.
    */
@@ -21,12 +22,17 @@ public abstract class Report {
     assert (project != null);
     this.project = project;
     reportElements = new ArrayList<ElementInterface>();
-    
+
   }
 
-  
+
+  /**
+   * Accepts the visitor's methods and writes the report to the chosen filetype.
+   * 
+   * @param formatting desired filetype.
+   */
   public void writeReport(Formatting formatting) {
-    for (ElementInterface currentElement : reportElements){
+    for (ElementInterface currentElement : reportElements) {
       currentElement.accept(formatting);
     }
     formatting.closeReport();

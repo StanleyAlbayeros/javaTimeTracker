@@ -1,3 +1,0 @@
-[main] INFO  mockclient.Client - Starting Main
-[main] INFO  mockclient.Client - Read option: 22
-[main] INFO  mockclient.Client - Invalid character.

@@ -1,6 +1,0 @@
-[main] INFO  mockclient.Client - Starting Main
-[main] INFO  mockclient.Client - Read option: 8
-[main] INFO  mockclient.Client - Generating simple txt report
-[main] INFO  mockclient.Client - Trying to load the program's state from: A1FinalState.bin
-[main] ERROR mockclient.Client - Failed read the file: A1FinalState.bin, it does not exist
-[main] ERROR mockclient.Client - Program's state successfully loaded from: A1FinalState.bin

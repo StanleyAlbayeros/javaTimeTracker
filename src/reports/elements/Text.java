@@ -7,9 +7,9 @@ import reports.Formatting;
 
 public class Text implements ElementInterface {
   
-  private String content = " ";  
-  private String underscoreLine = "_";
-  private String horizontalLine = "------------------------------------";
+  private String content = "";  
+  private String separate = "+";
+  private String horizontalLine = "----------------------------------------";
   private String verticalLine = "|";
   
   public Text() {
@@ -30,10 +30,10 @@ public class Text implements ElementInterface {
     content = content + lineBreak;
   }
   
-  public void addUnderscoreLine() {  
+  public void addSeparationLine() {  
     addLineBreak();
-    for (int i = 0 ; i <= 50 ; i++) {
-      content = content + underscoreLine;
+    for (int i = 0 ; i <= 80 ; i++) {
+      content = content + separate;
     }
     addLineBreak();
   }
@@ -58,17 +58,17 @@ public class Text implements ElementInterface {
   public void addTitle(String newText, boolean centered){
     assert (newText != null);
     if (centered){
-      centerElement(newText, 25);
+      centerElement(newText, 30);
     } else {
       content = content + newText;
     }
-    addUnderscoreLine();
+    addSeparationLine();
   }
   
   public void addSubtitle(String newText, boolean centered) {
     assert (newText != null);
     if (centered) {
-      centerElement(newText, 25);
+      centerElement(newText, 30);
     } else {
       content = content + newText;
     }
@@ -79,26 +79,24 @@ public class Text implements ElementInterface {
     assert (newTable != null);
 
     int tableColumns = newTable.get(0).size();
+    int tableRows = newTable.size();
 
     for (ArrayList<String> currentRow : newTable) {
       for (String currentColumm : currentRow) {
         content = content + horizontalLine;
-        addLineBreak();
-        content = content + verticalLine;
-        addLineBreak();
-        for (String currentColumm2 : currentRow) {
-          centerElement(currentColumm2, 100);
-        }
-        content = content + verticalLine;
-        addLineBreak();
-      }
-      for (int j = 0; j < tableColumns; j++) {
-        for (int k = 0; k < 50; k++) {
-          content = content + horizontalLine;
-        }
       }
       addLineBreak();
+      content = content + verticalLine;
+      for (String currentColumm2 : currentRow) {
+        centerElement(currentColumm2, ((40 - currentColumm2.length()) / 2));
+      }
+      content = content + verticalLine;
+      addLineBreak();
     }
+    for (int j = 0; j < tableColumns; j++) {
+      content = content + horizontalLine;
+    }
+    addLineBreak();
   }
 
   @Override

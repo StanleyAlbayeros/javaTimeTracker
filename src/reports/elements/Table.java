@@ -12,6 +12,10 @@ public class Table implements ElementInterface {
   public Table(){
   }
   
+  public ArrayList<ArrayList<String>> getTable() {
+    return table;
+  }
+  
   public Table(ArrayList<ArrayList<String>> table) {
     assert (table != null);
     this.table = table;
@@ -22,9 +26,6 @@ public class Table implements ElementInterface {
     this.table = table;
   }
   
-  public ArrayList<ArrayList<String>> getTable() {
-    return table;
-  }
   
   public void addTableRow(ArrayList<String> row) {
     assert (row != null);

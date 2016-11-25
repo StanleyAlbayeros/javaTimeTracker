@@ -107,5 +107,9 @@ public abstract class Activity implements Serializable {
     this.endDate = nendDate;
   }
 
+  public boolean isTaskInitialized() {
+    return false;
+  }
+
 }
 

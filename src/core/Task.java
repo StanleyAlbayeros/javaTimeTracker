@@ -20,6 +20,8 @@ public abstract class Task extends Activity implements Serializable {
   private ArrayList<Interval> intervalList = new ArrayList<Interval>();
 
   private ArrayDeque<Interval> pausedIntervals = new ArrayDeque<Interval>();
+  
+  private boolean isTaskInitialized = false;
 
   /**
    * Abstract task constructor.
@@ -35,6 +37,7 @@ public abstract class Task extends Activity implements Serializable {
       String ntaskType) {
     super(name, description, father, root);
     setTaskType(ntaskType);
+    this.setStartDate(new Date());
 
     log.info("Task: " + name + ". Type: " + taskType + " created.");
   }
@@ -45,6 +48,11 @@ public abstract class Task extends Activity implements Serializable {
   public Task() {
 
   }
+  
+  @Override
+  public boolean isTaskInitialized() {
+    return isTaskInitialized;
+  }
 
   /**
    * Starts a new task interval.
@@ -53,11 +61,11 @@ public abstract class Task extends Activity implements Serializable {
    * @param description interval description
    */
   public void startTaskInterval(String name, String description) {
-
     log.info("Starting the task: " + name + " with description: " + description);
     Date tempDate = new Date();
-    if (this.getStartDate() == null) {
+    if ((!this.isTaskInitialized) || (this.getStartDate() == null)) {
       this.setStartDate(tempDate);
+      isTaskInitialized = true;
     }
 
     Project tempProject = this.getFather();

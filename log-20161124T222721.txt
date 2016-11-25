@@ -1,5 +1,0 @@
-[main] INFO  mockclient.Client - Starting Main
-[main] INFO  mockclient.Client - Read option: 7
-[main] INFO  mockclient.Client - Printing last State
-[main] INFO  mockclient.Client - Trying to load the program's state from: tempState.bin
-[main] ERROR mockclient.Client - Program's state successfully loaded from: tempState.bin

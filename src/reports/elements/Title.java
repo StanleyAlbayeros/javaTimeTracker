@@ -4,7 +4,7 @@ import reports.Formatting;
 
 public class Title implements ElementInterface {
   
-  private String content = " ";
+  private String content = "";
   
   public Title(String content) {
     assert (content != null);
